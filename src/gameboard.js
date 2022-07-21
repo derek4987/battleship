@@ -20,12 +20,25 @@ const gameboard = () => {
 
     const receiveAttack = (x, y) => {
         // check if coordinates have been entered before
-        for (let i=0; i<selectedCoords.length; i++) {
-            if ( [x, y] === selectedCoords[i] ) {
-                break
-            } else continue;
+        const coords = [x,y];
+        const searchAllCoords = selectedCoords.includes(coords);
+        const searchShipCoords = shipCoords.includes(coords);
+
+        if (searchAllCoords === true) {
+            return;
         }
-        // add coordinates to hit or miss
-        // check shipCoords, if there add to hit, else miss
+        if (searchShipCoords === true && searchAllCoords === false) {
+            hitCoords.push(coords);
+        }
+        if (searchShipCoords === false && searchAllCoords === false) {
+            missCoords.push(coords);
+        }
     }
+
+    return { shipCoords, hitCoords, missCoords, selectedCoords, placeShip, receiveAttack };
 }
+
+
+export {
+        gameboard
+        }

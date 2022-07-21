@@ -24,3 +24,12 @@ test('Shows multiple hits marked', () => {
 test('recognizes ship is sunk', () => {
     expect(shipArrayTest.isSunk()).toStrictEqual(['x', 'x', 'x', 'x', 'x']);
 })
+
+// gameboard factory
+import { gameboard } from "./gameboard";
+
+test('receive attack recognizes if coordinate has already been selected', () => {
+    const gbTest = gameboard();
+    gbTest.selectedCoords.push([1,1]);
+    expect(gbTest.receiveAttack([1,1])).toBe(undefined);
+});
