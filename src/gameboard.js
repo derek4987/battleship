@@ -24,15 +24,13 @@ const gameboard = () => {
         const searchAllCoords = selectedCoords.includes(coords);
         const searchShipCoords = shipCoords.includes(coords);
 
-        if (searchAllCoords === true) {
-            return;
-        }
         if (searchShipCoords === true && searchAllCoords === false) {
             hitCoords.push(coords);
-        }
-        if (searchShipCoords === false && searchAllCoords === false) {
+            selectedCoords.push(coords);
+        } else if (searchShipCoords === false && searchAllCoords === false) {
             missCoords.push(coords);
-        }
+            selectedCoords.push(coords);
+        } else return;
     }
 
     return { shipCoords, hitCoords, missCoords, selectedCoords, placeShip, receiveAttack };

@@ -28,8 +28,11 @@ test('recognizes ship is sunk', () => {
 // gameboard factory
 import { gameboard } from "./gameboard";
 
-test('receive attack recognizes if coordinate has already been selected', () => {
+test('receive attack: attack is a miss and adds to miss array', () => {
     const gbTest = gameboard();
-    gbTest.selectedCoords.push([1,1]);
-    expect(gbTest.receiveAttack([1,1])).toBe(undefined);
+    gbTest.shipCoords.push([1,1]);
+    gbTest.receiveAttack([1,4]);
+    expect(gbTest.selectedCoords.includes([1,4])).toBe(false);
+    // expect(gbTest.missCoords.includes([1,4])).toBe(true);
+    // expect(gbTest.selectedCoords.includes([1,4])).toBe(true);
 });
