@@ -19,21 +19,30 @@ const gameboard = () => {
     };
 
     // coords entered as number xy with no comma between x and y
-    const receiveAttack = (coords) => {
+    const receiveAttack = (xy) => {
         // check if coordinates have been entered before
-        const searchAllCoords = selectedCoords.includes(coords);
-        const searchShipCoords = shipCoords.includes(coords);
+        const searchAllCoords = selectedCoords.includes(xy);
+        const searchShipCoords = shipCoords.includes(xy);
         if (searchAllCoords === false) {
             if (searchShipCoords === true) {
-                hitCoords.push(coords);
+                hitCoords.push(xy);
             } else {
-                missCoords.push(coords);
-            }
-            selectedCoords.push(coords);
+                missCoords.push(xy);
+            };
+            selectedCoords.push(xy);
         } else return;
-    }
+    };
 
-    return { shipCoords, hitCoords, missCoords, selectedCoords, placeShip, receiveAttack };
+    // checks if all ships have been sunk
+    const shipStatus = () => {
+        if (hitCoords.length === shipCoords.length) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    return { shipCoords, hitCoords, missCoords, selectedCoords, placeShip, receiveAttack, shipStatus };
 }
 
 
