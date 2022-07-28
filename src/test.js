@@ -28,11 +28,31 @@ test('recognizes ship is sunk', () => {
 // gameboard factory
 import { gameboard } from "./gameboard";
 
-test('receive attack: attack is a miss and adds to miss array', () => {
+test('receive attack: recognize if coord has been selected or not', () => {
     const gbTest = gameboard();
-    gbTest.shipCoords.push([1,1]);
-    gbTest.receiveAttack([1,4]);
-    expect(gbTest.selectedCoords.includes([1,4])).toBe(false);
-    // expect(gbTest.missCoords.includes([1,4])).toBe(true);
-    // expect(gbTest.selectedCoords.includes([1,4])).toBe(true);
+    gbTest.receiveAttack(11);
+    expect(gbTest.selectedCoords.includes(11)).toBe(true);
+    expect(gbTest.selectedCoords.includes(12)).toBe(false);
+});
+test('receive attack: recognizes if coord is a hit and adds to hitCoords array', () => {
+    const gbTest = gameboard();
+    gbTest.shipCoords.push(11);
+    gbTest.shipCoords.push(21);
+    expect(gbTest.selectedCoords.includes(11)).toBe(false);
+    gbTest.receiveAttack(11);
+    expect(gbTest.shipCoords.includes(11)).toBe(true);
+    expect(gbTest.hitCoords.includes(11)).toBe(true);
+    expect(gbTest.selectedCoords.includes(11)).toBe(true);
+    expect(gbTest.missCoords.includes(11)).toBe(false);
+});
+test('receive attack: recognizes if coord is a miss and adds to missCoords array', () => {
+    const gbTest = gameboard();
+    gbTest.shipCoords.push(11);
+    gbTest.shipCoords.push(21);
+    expect(gbTest.selectedCoords.includes(12)).toBe(false);
+    gbTest.receiveAttack(12);
+    expect(gbTest.shipCoords.includes(12)).toBe(false);
+    expect(gbTest.hitCoords.includes(12)).toBe(false);
+    expect(gbTest.selectedCoords.includes(12)).toBe(true);
+    expect(gbTest.missCoords.includes(12)).toBe(true);
 });

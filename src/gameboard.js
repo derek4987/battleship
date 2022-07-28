@@ -18,17 +18,17 @@ const gameboard = () => {
 
     };
 
-    const receiveAttack = (x, y) => {
+    // coords entered as number xy with no comma between x and y
+    const receiveAttack = (coords) => {
         // check if coordinates have been entered before
-        const coords = [x,y];
         const searchAllCoords = selectedCoords.includes(coords);
         const searchShipCoords = shipCoords.includes(coords);
-
-        if (searchShipCoords === true && searchAllCoords === false) {
-            hitCoords.push(coords);
-            selectedCoords.push(coords);
-        } else if (searchShipCoords === false && searchAllCoords === false) {
-            missCoords.push(coords);
+        if (searchAllCoords === false) {
+            if (searchShipCoords === true) {
+                hitCoords.push(coords);
+            } else {
+                missCoords.push(coords);
+            }
             selectedCoords.push(coords);
         } else return;
     }
