@@ -64,9 +64,9 @@ test('shipStatus: recongnize that all ships sunk', () => {
 });
 test('shipStatus: returns false if there are ships remaining', () => {
     const gbTest = gameboard();
-    gbTest.shipCoords = [11,12,13,14,15];
-    gbTest.hitCoords = [11,12];
-    expect(gbTest.shipCoords.length).toBe(5);
-    expect(gbTest.hitCoords.length).toBe(2);
+    gbTest.shipCoords.push(11,12,13,14,15);
+    gbTest.hitCoords.push(11,12);
+    // expect(gbTest.shipCoords.length).toBe(5);
+    // expect(gbTest.hitCoords.length).toBe(2);
     expect(gbTest.shipStatus()).toBe(false);
 });

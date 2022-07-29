@@ -1,4 +1,5 @@
 // gameboard factory function
+import { electron } from "webpack";
 import { shipFactory } from "./ship"
 
 const gameboard = () => {
@@ -14,8 +15,16 @@ const gameboard = () => {
     let missCoords = [];
     let selectedCoords = [];
 
-    const placeShip = (x, y, ship, direction) => {
-
+    const placeShip = (xy, ship, direction) => {
+        const shipLength = ship.length;
+        if (direction === 'h') {
+            let toAdd = 10;
+            for (let i=0; i<shipLength; i++) {
+                if (shipCoords.includes(xy) === true) {
+                    break;
+                } else continue;
+            }
+        }
     };
 
     // coords entered as number xy with no comma between x and y
