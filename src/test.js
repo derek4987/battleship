@@ -26,7 +26,7 @@ test('recognizes ship is sunk', () => {
 })
 
 // gameboard factory
-import { gameboard } from "./gameboard";
+import { gameboard, hitShips } from "./gameboard";
 
 test('receiveAttack: recognize if coord has been selected or not', () => {
     const gbTest = gameboard();
@@ -69,4 +69,15 @@ test('shipStatus: returns false if there are ships remaining', () => {
     // expect(gbTest.shipCoords.length).toBe(5);
     // expect(gbTest.hitCoords.length).toBe(2);
     expect(gbTest.shipStatus()).toBe(false);
+});
+
+// maybe test end result with receive attack and add condition
+// hitShips function
+test('hitShips: runs hit function if coord is present', () => {
+    const carrierTest = shipFactory('carrier', 5);
+    expect(hitShips(4)).toStrictEqual([0, 1, 2, 'x', 4]);
+});
+test('hitShips: does not run hit function if coord is not present', () => {
+    const carrierTest = shipFactory('carrier', 5);
+    expect(hitShips(10)).toStrictEqual([0, 1, 2, 3, 4]);
 });

@@ -4,8 +4,12 @@ const shipFactory = (name, length) => {
     for (let i=0; i<length; i++) {
         shipArray.push(i);
     };
-    const hit = (number) => {
-        shipArray[number] = 'x';
+    const hit = (xy) => {
+        for (let i=0; i<length; i++) {
+            if (shipArray[i] === xy) {
+                shipArray[i] = 'x';
+            } else continue;
+        };
         return shipArray;
     };
     const isSunk = () => {
@@ -16,7 +20,7 @@ const shipFactory = (name, length) => {
         }
         return shipArray;
     };
-    return { name, length, hit, isSunk };
+    return { name, length, shipArray, hit, isSunk };
 };
 
 export { shipFactory        
