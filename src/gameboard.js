@@ -37,6 +37,7 @@ const gameboard = () => {
         if (searchAllCoords === false) {
             if (searchShipCoords === true) {
                 hitCoords.push(xy);
+                hitShips(xy);
             } else {
                 missCoords.push(xy);
             };
@@ -67,6 +68,7 @@ function hitShips(xy) {
             return allShipsArray[i].shipArray;
         } else continue;
     }
+    return [carrier.shipArray, battleship.shipArray, cruiser.shipArray, submarine.shipArray, destroyer.shipArray];
 };
 
 export {

@@ -74,10 +74,10 @@ test('shipStatus: returns false if there are ships remaining', () => {
 // maybe test end result with receive attack and add condition
 // hitShips function
 test('hitShips: runs hit function if coord is present', () => {
-    const carrierTest = shipFactory('carrier', 5);
-    expect(hitShips(4)).toStrictEqual([0, 1, 2, 'x', 4]);
+    // const carrierTest = shipFactory('carrier', 5);
+    expect(hitShips(3)).toStrictEqual([0, 1, 2, 'x', 4]);
 });
 test('hitShips: does not run hit function if coord is not present', () => {
     const carrierTest = shipFactory('carrier', 5);
-    expect(hitShips(10)).toStrictEqual([0, 1, 2, 3, 4]);
+    expect(hitShips(10)).toStrictEqual([[0,1,2,'x',4], [0,1,2,3], [0,1,2], [0,1,2], [0,1]]);
 });
