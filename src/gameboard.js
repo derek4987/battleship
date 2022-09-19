@@ -46,15 +46,14 @@ const gameboard = () => {
                     break;
                 } else continue;
             }
-        };
-        if (direction = 'v') {
+        } else if (direction = 'v') {
             for (let i=0; i<tempArray.length; i++) {
                 if (tempArray[i] > 100 || tempArray[i] === undefined || shipCoords.includes(tempArray[i])) {
                     isValidCoords = false;
                     break;
                 } else continue;
             }
-        };
+        } else return;
 
         if (isValidCoords === true) {
             ship.shipArray = tempArray;
