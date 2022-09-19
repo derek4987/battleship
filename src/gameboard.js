@@ -19,14 +19,48 @@ const gameboard = () => {
 
     const placeShip = (xy, ship, direction) => {
         const shipLength = ship.length;
+        let tempArray = [];
+        let coord = xy;
+        let toAdd;
         if (direction === 'h') {
-            let toAdd = 10;
+            toAdd = 1;
+        } else if (direction === 'v') {
+            toAdd = 10;
+        } else return;
+
+        if (shipCoords.includes(xy) === true) {
+            return;
+        } else {
             for (let i=0; i<shipLength; i++) {
-                if (shipCoords.includes(xy) === true) {
+                tempArray.push(coord);
+                coord = coord + toAdd;
+            }
+        };
+        // verify tempArray is valid  
+        let isValidCoords = true;
+        if (direction = 'h') {
+            const highestCoord = roundUpNearest10(xy);
+            for (let i=0; i<tempArray.length; i++) {
+                if (tempArray[i] > highestCoord || tempArray[i] === undefined || shipCoords.includes(tempArray[i])) {
+                    isValidCoords = false;
                     break;
                 } else continue;
             }
-        }
+        };
+        if (direction = 'v') {
+            for (let i=0; i<tempArray.length; i++) {
+                if (tempArray[i] > 100 || tempArray[i] === undefined || shipCoords.includes(tempArray[i])) {
+                    isValidCoords = false;
+                    break;
+                } else continue;
+            }
+        };
+
+        if (isValidCoords === true) {
+            ship.shipArray = tempArray;
+            const newShipCoords = shipCoords.concat(tempArray);
+            shipCoords = newShipCoords;
+        } else return;
     };
 
     // coords entered as number xy with no comma between x and y
@@ -55,7 +89,7 @@ const gameboard = () => {
     };
 
     return { shipCoords, hitCoords, missCoords, selectedCoords, placeShip, receiveAttack, shipStatus };
-}
+};
 
 
 // searches the ships to see which one is hit and runs hit function
@@ -70,6 +104,11 @@ function hitShips(xy) {
     }
     return [carrier.shipArray, battleship.shipArray, cruiser.shipArray, submarine.shipArray, destroyer.shipArray];
 };
+
+//round up to nearest 10
+function roundUpNearest10(num) {
+    return Math.ceil(num / 10) * 10;
+}
 
 export {
         gameboard,
