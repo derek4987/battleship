@@ -3,14 +3,14 @@ import { electron } from "webpack";
 import { shipFactory } from "./ship"
 
 
-// ships
-const carrier = shipFactory('carrier', 5);
-const battleship = shipFactory('battleship', 4);
-const cruiser = shipFactory('cruiser', 3);
-const submarine = shipFactory('submarine', 3);
-const destroyer = shipFactory('destroyer', 2);
-
 const gameboard = () => {
+
+    // ships
+    const carrier = shipFactory('carrier', 5);
+    const battleship = shipFactory('battleship', 4);
+    const cruiser = shipFactory('cruiser', 3);
+    const submarine = shipFactory('submarine', 3);
+    const destroyer = shipFactory('destroyer', 2);
 
     let shipCoords = [];
     let hitCoords = [];
@@ -87,30 +87,27 @@ const gameboard = () => {
         }
     };
 
+    // searches the ships to see which one is hit and runs hit function
+    function hitShips(xy) {
+        let allShipsArray = [carrier, battleship, cruiser, submarine, destroyer];
+        for (let i=0; i< allShipsArray.length; i++) {
+            if (allShipsArray[i].shipArray.includes(xy) === true) {
+                allShipsArray[i].hit(xy);
+                return allShipsArray[i].shipArray;
+            } else continue;
+        }
+        return [carrier.shipArray, battleship.shipArray, cruiser.shipArray, submarine.shipArray, destroyer.shipArray];
+    };
+
+    //round up to nearest 10
+    function roundUpNearest10(num) {
+        return Math.ceil(num / 10) * 10;
+    }
+
     return { shipCoords, hitCoords, missCoords, selectedCoords, placeShip, receiveAttack, shipStatus };
 };
 
-
-// searches the ships to see which one is hit and runs hit function
-// add to conditions on receiveAttack
-function hitShips(xy) {
-    let allShipsArray = [carrier, battleship, cruiser, submarine, destroyer];
-    for (let i=0; i< allShipsArray.length; i++) {
-        if (allShipsArray[i].shipArray.includes(xy) === true) {
-            allShipsArray[i].hit(xy);
-            return allShipsArray[i].shipArray;
-        } else continue;
-    }
-    return [carrier.shipArray, battleship.shipArray, cruiser.shipArray, submarine.shipArray, destroyer.shipArray];
-};
-
-//round up to nearest 10
-function roundUpNearest10(num) {
-    return Math.ceil(num / 10) * 10;
-}
-
 export {
-        gameboard,
-        hitShips        
+        gameboard        
     }
 
