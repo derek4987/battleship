@@ -104,7 +104,7 @@ const gameboard = () => {
         return Math.ceil(num / 10) * 10;
     }
 
-    return { shipCoords, hitCoords, missCoords, selectedCoords, placeShip, receiveAttack, shipStatus };
+    return { shipCoords, hitCoords, missCoords, selectedCoords, placeShip, receiveAttack, shipStatus, hitShips, carrier, battleship, cruiser, submarine, destroyer };
 };
 
 export {

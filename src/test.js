@@ -79,5 +79,14 @@ test('hitShips: runs hit function if coord is present', () => {
 });
 test('hitShips: does not run hit function if coord is not present', () => {
     const gbTest = gameboard();
-    expect(gbTest.hitShips(10)).toStrictEqual([[0,1,2,'x',4], [0,1,2,3], [0,1,2], [0,1,2], [0,1]]);
+    expect(gbTest.hitShips(10)).toStrictEqual([[0,1,2,3,4], [0,1,2,3], [0,1,2], [0,1,2], [0,1]]);
+});
+
+// testing placeShip
+test('placeShip: places valid ship vertical, assigns coordinates, and adds to arrays', () => {
+    const gbTest = gameboard();
+    // gbTest.placeShip(11, gbTest.cruiser, 'v');
+    // expect(gbTest.shipCoords).toStrictEqual([11,21,31]);
+    // expect(gbTest.cruiser.shipArray).toStrictEqual([11,21,31]);
+    // expect(gbTest.placeShip(11, gbTest.cruiser, 'v')).toStrictEqual([11,21,31]);
 });
