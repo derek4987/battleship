@@ -85,8 +85,12 @@ test('hitShips: does not run hit function if coord is not present', () => {
 // testing placeShip
 test('placeShip: places valid ship vertical, assigns coordinates, and adds to arrays', () => {
     const gbTest = gameboard();
-    // gbTest.placeShip(11, gbTest.cruiser, 'v');
-    // expect(gbTest.shipCoords).toStrictEqual([11,21,31]);
+    // gbTest.placeShip(11,gbTest.cruiser, 'v');
+    expect(gbTest.placeShip(11, gbTest.cruiser, 'v')).toBe(true);
     // expect(gbTest.cruiser.shipArray).toStrictEqual([11,21,31]);
-    // expect(gbTest.placeShip(11, gbTest.cruiser, 'v')).toStrictEqual([11,21,31]);
+    // expect(gbTest.shipCoords).toBe([11,21,31]);
+});
+test('placeShip: places valid ship horizontal, assigns coordinates, and adds to arrays', () => {
+    const gbTest = gameboard();
+    expect(gbTest.placeShip(12, gbTest.cruiser, 'h')).toBe(true);
 });

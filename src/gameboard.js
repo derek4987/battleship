@@ -22,12 +22,15 @@ const gameboard = () => {
         let tempArray = [];
         let coord = xy;
         let toAdd;
+
+        // determine toAdd value
         if (direction === 'h') {
             toAdd = 1;
         } else if (direction === 'v') {
             toAdd = 10;
         } else return;
 
+        // creates tempArray based on xy and toAdd value
         if (shipCoords.includes(xy) === true) {
             return;
         } else {
@@ -36,9 +39,10 @@ const gameboard = () => {
                 coord = coord + toAdd;
             }
         };
+
         // verify tempArray is valid  
         let isValidCoords = true;
-        if (direction = 'h') {
+        if (direction === 'h') {
             const highestCoord = roundUpNearest10(xy);
             for (let i=0; i<tempArray.length; i++) {
                 if (tempArray[i] > highestCoord || tempArray[i] === undefined || shipCoords.includes(tempArray[i])) {
@@ -46,7 +50,7 @@ const gameboard = () => {
                     break;
                 } else continue;
             }
-        } else if (direction = 'v') {
+        } else if (direction === 'v') {
             for (let i=0; i<tempArray.length; i++) {
                 if (tempArray[i] > 100 || tempArray[i] === undefined || shipCoords.includes(tempArray[i])) {
                     isValidCoords = false;
@@ -60,6 +64,7 @@ const gameboard = () => {
             const newShipCoords = shipCoords.concat(tempArray);
             shipCoords = newShipCoords;
         } else return;
+        return true;
     };
 
     // coords entered as number xy with no comma between x and y
