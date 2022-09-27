@@ -2,8 +2,10 @@
 
 import { gameboard } from "./gameboard";
 
-const Player = (board) => {
+const Player = (playerName, board) => {
+        if (playerName = 'computer') {
 
+        }
 };
 
 export { Player
