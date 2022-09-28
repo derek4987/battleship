@@ -1,14 +1,12 @@
 import _ from 'lodash';
 import './style.css';
+import startPageContent from './DOM/startPage';
 
-function component() {
-    const element = document.createElement('div');
-  
-    // Lodash, now imported by this script
-    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-    element.classList.add('hello');
-  
-    return element;
-  }
-  
-  document.body.appendChild(component());
+// start page content
+function startPage() {
+	const element = startPageContent();
+
+	return element;
+}
+
+document.body.append(startPage());
