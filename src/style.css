@@ -1,5 +1,4 @@
 :root {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   min-height: 100vh;
 }
 
@@ -12,4 +11,13 @@
 
 button {
   cursor: pointer;
+}
+
+/* @font-face {
+  font-family: 'gameFont';
+  src: url(../src/asset/gameFont.ttf);
+} */
+
+body {
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }

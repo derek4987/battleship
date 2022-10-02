@@ -2,7 +2,7 @@
 
 const startPageContent = () => {
     // page content wrapper
-    const hWrapper = newDiv('','');
+    const hWrapper = newDiv('','hWrapper');
 
     // page title
     const pageTitle = newDiv('','hTitle');
@@ -21,14 +21,14 @@ const startPageContent = () => {
     playerNameInput.setAttribute('type','text');
     playerNameInput.setAttribute('name','player1');
     playerNameInput.setAttribute('id','playerInfo');
-    playerNameInput.setAttribute('value','Player 1');
+    playerNameInput.setAttribute('placeholder','Player 1');
     playerNameInput.setAttribute('maxlength',"10");
     playerNameInput.setAttribute('minlength',"2");
 
     hPlayerInfo.append(playerNameLabel, playerNameInput);
 
     // play button
-    const playButton = newButton('hbuttons','hplayButton');
+    const playButton = newButton('hButtons','hPlayButton');
     playButton.textContent = "Play";
 
     // append elements to hModal
