@@ -2,11 +2,58 @@
 
 const placeShipContent = () => {
     // page content wrapper
-    const hWrapper = newDiv('','psWrapper');
+    const psWrapper = newDiv('','psWrapper');
 
-    
+    // page title
+    const pageTitle = newDiv('title','');
+    pageTitle.textContent = "Battleship";
+
+    // playerBoard
+    const playerBoardDiv = newDiv('playerBoardDiv','');
+
+    const boardHeader = newDiv('boardHeader','');
+    boardHeader.textContent = "Place your ships";
+
+    const boardContainer = newDiv('boardContainer','');
+    for (let i=1; i<101; i++) {
+        const square = newDiv('playerBoard',`${i}`);
+        boardContainer.append(square);
+    }
+
+    playerBoardDiv.append(boardHeader, boardContainer);
+
+    // ships drag boxes
+    const shipsDragBox = newDiv('','shipsDragBox');
+    const carrierBox = newDiv('horizontal','carrierBox');
+    for (let i=0; i<5; i++) {
+        const square = newDiv('psDragBoxSquare', '');
+        carrierBox.append(square);
+    }
+    const battleshipBox = newDiv('horizontal','battleshipBox');
+    for (let i=0; i<4; i++) {
+        const square = newDiv('psDragBoxSquare', '');
+        battleshipBox.append(square);
+    }
+    const cruiserBox = newDiv('horizontal','cruiserBox');
+    for (let i=0; i<3; i++) {
+        const square = newDiv('psDragBoxSquare', '');
+        cruiserBox.append(square);
+    }
+    const submarineBox = newDiv('horizontal','submarineBox');
+    for (let i=0; i<3; i++) {
+        const square = newDiv('psDragBoxSquare', '');
+        submarineBox.append(square);
+    }
+    const destroyerBox = newDiv('horizontal','destroyerBox');
+    for (let i=0; i<2; i++) {
+        const square = newDiv('psDragBoxSquare', '');
+        destroyerBox.append(square);
+    }
+
+    shipsDragBox.append(carrierBox, battleshipBox, cruiserBox, submarineBox, destroyerBox);
+
     // append all content to wrapper
-    hWrapper.append();
+    psWrapper.append(pageTitle, playerBoardDiv, shipsDragBox);
 
     return psWrapper;
 }

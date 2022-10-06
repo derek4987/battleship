@@ -5,7 +5,7 @@ const startPageContent = () => {
     const hWrapper = newDiv('','hWrapper');
 
     // page title
-    const pageTitle = newDiv('','hTitle');
+    const pageTitle = newDiv('title','');
     pageTitle.textContent = "Battleship";
 
     // modal wrapper

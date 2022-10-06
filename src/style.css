@@ -32,10 +32,10 @@ body {
   width: 100vw;
 }
 
-#hTitle {
+.title {
   color: rgb(65, 211, 65);
   font-size: 3.5rem;
-  padding-top: 40px;
+  padding-top: 30px;
 }
 
 #hModal {
@@ -88,4 +88,86 @@ body {
 #hPlayButton:hover {
   height: 42px;
   width: 112px;
+}
+
+/* placeShip page styles */
+#psWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(16, 16, 16);
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+/* player board div */
+.playerBoardDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  gap: 20px;
+}
+.boardHeader {
+  color: rgb(210, 215, 200);
+  font-size: 1.5rem;
+}
+/* player board will be created in js. looped to make all squares with .playerBoard class
+ and id of coordinate number width and height will be 45px each */
+.boardContainer {
+  display: flex;
+  flex-flow: wrap;
+  width: 452px;
+  border: 1px solid blue;
+}
+.playerBoard {
+  width: 45px;
+  height: 45px;
+  background-color: rgb(68, 78, 68);
+  border: 1px solid black;
+}
+
+/* ships drag box */
+#shipsDragBox {
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+  min-width: 420px;
+  flex: 1;
+  margin-top: 15px;
+  gap: 10px;
+}
+.psDragBoxSquare {
+  border: 1px solid rgb(122, 122, 122);
+  background-color: rgb(55, 74, 180);
+  width: 45px;
+  height: 45px;
+}
+.horizontal {
+  display: flex;
+  flex-direction: row;
+}
+.vertical {
+  display: flex;
+  flex-direction: column;
+}
+#carrierBox {
+  width: 230px;
+  height: 230px;
+}
+#battleshipBox {
+  width: 185px;
+  height: 185px;
+}
+#cruiserBox {
+  width: 140px;
+  height: 140px;
+}
+#submarineBox {
+  width: 140px;
+  height: 140px;
+}
+#destroyerBox {
+  width: 95px;
+  height: 95px;
 }
