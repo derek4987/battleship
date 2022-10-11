@@ -108,6 +108,7 @@ body {
   flex-direction: column;
   align-items: center;
   margin-top: 10px;
+  height: 515px;
   gap: 20px;
 }
 .boardHeader {
@@ -199,6 +200,62 @@ body {
   height: 40px;
 }
 #psClearButton:hover {
+  width: 112px;
+  height: 42px;
+}
+
+/* mainGame page styles */
+#mgWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: rgb(16, 16, 16);
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+#gameboardsDiv {
+  display: flex;
+  flex: 0;
+  flex-wrap: wrap;
+  max-width: 1070px;
+  max-height: fit-content;
+  gap: 75px;
+  justify-content: center;
+  padding: 30px 30px;
+}
+
+.aiBoardHover:hover {
+  background-color: rgb(114, 146, 114);
+}
+
+/* mainGame page buttons */
+#mgButtonsDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 250px;
+  height: 45px;
+  padding-bottom: 25px;
+  margin-top: 25px;
+  margin-bottom: auto;
+}
+
+#mgRestartButton {
+  width: 110px;
+  height: 40px;
+}
+#mgRestartButton:hover {
+  width: 112px;
+  height: 42px;
+}
+
+#mgQuitButton {
+  width: 110px;
+  height: 40px;
+}
+#mgQuitButton:hover {
   width: 112px;
   height: 42px;
 }

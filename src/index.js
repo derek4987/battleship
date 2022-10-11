@@ -2,6 +2,7 @@ import _ from 'lodash';
 import './style.css';
 import startPageContent from './DOM/startPage';
 import placeShipContent from './DOM/placeShip';
+import mainGameContent from './DOM/mainGame';
 
 // page content shell
 const pageContent = document.body;
@@ -22,7 +23,12 @@ function placeShip() {
 	return element;
 }
 
+// main game content
+function mainGame() {
+	const element = mainGameContent();
 
+	return element;
+}
 
 
 
@@ -35,7 +41,9 @@ document.addEventListener('click', function(e) {
 			return
 		} else {
 			pageContent.innerHTML = '';
-			pageContent.append(placeShip());
+			// temp bypass of place ship page while developing rest of game
+			// pageContent.append(placeShip());
+			pageContent.append(mainGame());
 		}
 	}
 })
