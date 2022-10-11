@@ -28,7 +28,7 @@ const startPageContent = () => {
     hPlayerInfo.append(playerNameLabel, playerNameInput);
 
     // play button
-    const playButton = newButton('hButtons','hPlayButton');
+    const playButton = newButton('defaultButtons','hPlayButton');
     playButton.textContent = "Play";
 
     // append elements to hModal

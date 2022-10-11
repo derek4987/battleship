@@ -52,8 +52,19 @@ const placeShipContent = () => {
 
     shipsDragBox.append(carrierBox, battleshipBox, cruiserBox, submarineBox, destroyerBox);
 
+    // placeShip page buttons
+    const buttonDiv = newDiv('','psButtonsDiv');
+    
+    const playButton = newButton('defaultButtons','psPlayButton');
+    playButton.textContent = "Play";
+
+    const clearButton = newButton('defaultButtons','psClearButton');
+    clearButton.textContent = "Clear";
+
+    buttonDiv.append(playButton, clearButton);
+
     // append all content to wrapper
-    psWrapper.append(pageTitle, playerBoardDiv, shipsDragBox);
+    psWrapper.append(pageTitle, playerBoardDiv, shipsDragBox, buttonDiv);
 
     return psWrapper;
 }
