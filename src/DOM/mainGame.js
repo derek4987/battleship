@@ -50,11 +50,34 @@ const mainGameContent = () => {
     buttonDiv.append(restartButton, quitButton);
 
     // game over modal
-    // future game over modal content with "hidden" class and absolute position
-    // place background div with opacity so you can only press modal buttons
+    const mgModal = newDiv('modal-close','');
+
+    const mgModalWrapper = newDiv('','mgModal');
+    
+    const mgWinnerName = newDiv('','mgWinnerName');
+    mgWinnerName.textContent = "Player 1 Wins";
+
+    const modalButtonsDiv = newDiv('','modalButtonsDiv');
+
+    const modalPlayAgain = newButton('defaultButtons','modalPlayAgain');
+    modalPlayAgain.textContent = "Play Again";
+
+    const modalMainMenu = newButton('defaultButtons','modalMainMenu');
+    modalMainMenu.textContent = "Main Menu";
+
+    modalButtonsDiv.append(modalPlayAgain, modalMainMenu);
+
+    // append elements to mgWrapper
+    mgModalWrapper.append(mgWinnerName, modalButtonsDiv);
+
+    // append elements to mgModal
+    mgModal.append(mgModalWrapper);
+
+    const disableBackground = newDiv('disableBackground','');
+    disableBackground.classList.add('modal-close');
 
     // append all content to wrapper
-    mgWrapper.append(pageTitle, gameboardsDiv, buttonDiv);
+    mgWrapper.append(pageTitle, gameboardsDiv, buttonDiv, mgModal, disableBackground);
 
     return mgWrapper;
 }

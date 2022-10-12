@@ -47,3 +47,28 @@ document.addEventListener('click', function(e) {
 		}
 	}
 })
+
+
+// DOM logic functions
+
+function modalOpenOrClose(modalID, openOrClose) {
+    const modal = document.querySelector(`${modalID}`);
+    if (openOrClose === 'open') {
+        modal.classList.add('modal-open');
+        modal.classList.remove('modal-close');
+    } else if (openOrClose === 'close') {
+        modal.classList.remove('modal-open');
+        modal.classList.add('modal-close');
+    } else return;
+};
+
+function disableBackground(onOrOff) {
+    const background = document.querySelector('.disableBackground');
+    if (onOrOff === 'on') {
+        background.classList.add('modal-open');
+        background.classList.remove('modal-close');
+    } else if (onOrOff === 'off') {
+        background.classList.remove('modal-open');
+        background.classList.add('modal-close');
+    } else return;
+}
