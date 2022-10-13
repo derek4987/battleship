@@ -34,19 +34,70 @@ function mainGame() {
 
 // page gameflow
 document.addEventListener('click', function(e) {
-
+	// start page
 	if (e.target.matches('#hPlayButton')) {
 		const hPlayerNameInput = document.querySelector('#playerInfo');
 		if (hPlayerNameInput.value.length < 2 || hPlayerNameInput.value.length > 10) {
 			return
 		} else {
 			pageContent.innerHTML = '';
-			// temp bypass of place ship page while developing rest of game
-			// pageContent.append(placeShip());
-			pageContent.append(mainGame());
+			pageContent.append(placeShip());
 		}
 	}
-})
+
+	// placeShip page
+	if (e.target.matches('#psPlayButton')) {
+
+		// future logic to add on placeShip page
+		// check for ships placed
+		// functionality for clear button
+		// etc.
+
+		pageContent.innerHTML = '';
+		pageContent.append(mainGame());
+	}
+
+	if (e.target.matches('#psClearButton')) {
+		pageContent.innerHTML = '';
+		pageContent.append(placeShip());
+		// future functionality added
+		// clear all game data except player name
+
+	}
+
+	// mainGame page
+	if (e.target.matches('#mgRestartButton')) {
+		modalOpenOrClose('#aysModal','open');
+		disableBackground('on');
+		
+		document.addEventListener('click', function(e) {
+			if (e.target.matches('#aysYesButton')) {
+				pageContent.innerHTML = '';
+				// clear current game data, hits, misses, etc except player name
+				pageContent.append(placeShip());
+			} else if (e.target.matches('#aysNoButton')) {
+				modalOpenOrClose('#aysModal','close');
+				disableBackground('off')
+			} else return;
+		});
+	}
+
+	if (e.target.matches('#mgQuitButton')) {
+		modalOpenOrClose('#aysModal','open');
+		disableBackground('on');
+
+		document.addEventListener('click', function(e) {
+			if (e.target.matches('#aysYesButton')) {
+				pageContent.innerHTML = '';
+				// clear current game data, hits, misses, etc and player name
+				pageContent.append(startPage());
+			} else if (e.target.matches('#aysNoButton')) {
+				modalOpenOrClose('#aysModal','close');
+				disableBackground('off')
+			} else return;
+		});
+	}
+});
 
 
 // DOM logic functions

@@ -272,7 +272,7 @@ body {
   display: none;
 }
 
-#mgModal {
+.mgDefaultModal {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -305,7 +305,7 @@ body {
   z-index: 4;
 }
 
-#mgWinnerName {
+.mgModalMessageDefault {
   font-size: 2rem;
 }
 
@@ -332,5 +332,32 @@ body {
 }
 #modalMainMenu:hover {
   width: 157px;
+  height: 42px;
+}
+
+/* are you sure modal on mainGame page */
+#aysButtonsDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 45px;
+  width: 225px;
+}
+
+#aysYesButton {
+  width: 100px;
+  height: 40px;
+}
+#aysYesButton:hover {
+  width: 102px;
+  height: 42px;
+}
+
+#aysNoButton {
+  width: 100px;
+  height: 40px;
+}
+#aysNoButton:hover {
+  width: 102px;
   height: 42px;
 }

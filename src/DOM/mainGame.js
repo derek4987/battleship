@@ -50,11 +50,11 @@ const mainGameContent = () => {
     buttonDiv.append(restartButton, quitButton);
 
     // game over modal
-    const mgModal = newDiv('modal-close','');
+    const mgModal = newDiv('modal-close','mgModal');
 
-    const mgModalWrapper = newDiv('','mgModal');
+    const mgModalWrapper = newDiv('mgDefaultModal','');
     
-    const mgWinnerName = newDiv('','mgWinnerName');
+    const mgWinnerName = newDiv('mgModalMessageDefault','mgWinnerName');
     mgWinnerName.textContent = "Player 1 Wins";
 
     const modalButtonsDiv = newDiv('','modalButtonsDiv');
@@ -76,8 +76,30 @@ const mainGameContent = () => {
     const disableBackground = newDiv('disableBackground','');
     disableBackground.classList.add('modal-close');
 
+    // Are you sure? modal; exact same styles aas game over modal, but different text
+    const aysModal = newDiv('modal-close','aysModal');
+
+    const aysModalWrapper = newDiv('mgDefaultModal','');
+
+    const aysMessage = newDiv('mgModalMessageDefault','aysMessage');
+    aysMessage.textContent = "Are you sure?";
+
+    const aysButtonsDiv = newDiv('','aysButtonsDiv');
+
+    const aysYesButton = newButton('defaultButtons','aysYesButton');
+    aysYesButton.textContent = "Yes";
+
+    const aysNoButton = newButton('defaultButtons','aysNoButton');
+    aysNoButton.textContent = "No";
+
+    aysButtonsDiv.append(aysYesButton, aysNoButton);
+
+    aysModalWrapper.append(aysMessage, aysButtonsDiv);
+
+    aysModal.append(aysModalWrapper);
+
     // append all content to wrapper
-    mgWrapper.append(pageTitle, gameboardsDiv, buttonDiv, mgModal, disableBackground);
+    mgWrapper.append(pageTitle, gameboardsDiv, buttonDiv, mgModal, aysModal, disableBackground);
 
     return mgWrapper;
 }
