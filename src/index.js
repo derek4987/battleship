@@ -3,6 +3,7 @@ import './style.css';
 import startPageContent from './DOM/startPage';
 import placeShipContent from './DOM/placeShip';
 import mainGameContent from './DOM/mainGame';
+import { gameboard } from './gameboard';
 
 // page content shell
 const pageContent = document.body;
@@ -30,7 +31,9 @@ function mainGame() {
 	return element;
 }
 
-
+// player and ai gameboards
+// const aiBoard = gameboard();
+// const playerBoard = gameboard();
 
 // page gameflow
 document.addEventListener('click', function(e) {
@@ -55,6 +58,11 @@ document.addEventListener('click', function(e) {
 
 		pageContent.innerHTML = '';
 		pageContent.append(mainGame());
+		// computer ship placement: randomly selected
+		placeShipRandom(aiBoard);
+		// player ship placement: temporary random for testing game
+		placeShipRandom(playerBoard);
+		displayPlayersShips(playerBoard);
 	}
 
 	if (e.target.matches('#psClearButton')) {
@@ -100,6 +108,10 @@ document.addEventListener('click', function(e) {
 });
 
 
+// player and ai gameboards
+const aiBoard = gameboard();
+const playerBoard = gameboard();
+
 // DOM logic functions
 
 function modalOpenOrClose(modalID, openOrClose) {
@@ -122,4 +134,77 @@ function disableBackground(onOrOff) {
         background.classList.remove('modal-open');
         background.classList.add('modal-close');
     } else return;
-}
+};
+
+function displayPlayersShips(board) {
+	let shipCoords = board.shipCoords;
+	// convert shipCoords into string
+	shipCoords = shipCoords.map(num => {
+		return String(num);
+	});
+	// add 'p' in front of each number so ID can be searched
+	shipCoords = shipCoords.map(coord => {
+		return 'p'+coord;
+	});
+	
+	// add appropriate class to display color correctly
+	for (let i=0; i<shipCoords.length; i++) {
+		const coord = document.querySelector(`#${shipCoords[i]}`);
+		coord.classList.remove('playerBoard');
+		coord.classList.add('psDragBoxSquare');
+	}
+};
+
+// random Int from interval
+function randomIntFromInterval(min, max) { // min and max included 
+	return Math.floor(Math.random() * (max - min + 1) + min)
+};
+
+// random ship placement
+
+function placeShipRandom(board) {
+	const hOrV = ['h','v'];
+	// boardCoords returns [1,2,...,100];
+	// const boardCoords = Array.from( {length: 100}, (_, i) => i +1);
+
+	//place carrier
+	for (let i=0; i<150; i++) {
+		const direction = hOrV[randomIntFromInterval(0,1)];
+		const xy = randomIntFromInterval(1,100);
+		if (board.placeShip(xy, board.carrier, direction) === true) {
+			break;
+		} else continue;
+	}
+	//place battleship
+	for (let i=0; i<150; i++) {
+		const direction = hOrV[randomIntFromInterval(0,1)];
+		const xy = randomIntFromInterval(1,100);
+		if (board.placeShip(xy, board.battleship, direction) === true) {
+			break;
+		} else continue;
+	}
+	//place cruiser
+	for (let i=0; i<150; i++) {
+		const direction = hOrV[randomIntFromInterval(0,1)];
+		const xy = randomIntFromInterval(1,100);
+		if (board.placeShip(xy, board.cruiser, direction) === true) {
+			break;
+		} else continue;
+	}
+	//place submarine
+	for (let i=0; i<150; i++) {
+		const direction = hOrV[randomIntFromInterval(0,1)];
+		const xy = randomIntFromInterval(1,100);
+		if (board.placeShip(xy, board.submarine, direction) === true) {
+			break;
+		} else continue;
+	}
+	//place destroyer
+	for (let i=0; i<150; i++) {
+		const direction = hOrV[randomIntFromInterval(0,1)];
+		const xy = randomIntFromInterval(1,100);
+		if (board.placeShip(xy, board.destroyer, direction) === true) {
+			break;
+		} else continue;
+	}
+};

@@ -28,7 +28,7 @@ const mainGameContent = () => {
     aiBoardHeader.textContent = "AI";
     const aiBoardContainer = newDiv('boardContainer','');
     for (let i=1; i<101; i++) {
-        const square = newDiv('playerBoard',`ai${i}`);
+        const square = newDiv('playerBoard',`c${i}`);
         square.classList.add('aiBoardHover');
         aiBoardContainer.append(square);
     }

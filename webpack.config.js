@@ -2,6 +2,9 @@ const path = require('path');
 const toml = require('toml');
 const yaml = require('yamljs');
 const json5 = require('json5');
+// const NodePolyfillPlugin = require('node-polyfill-webpack-plugin');
+// const TerserPlugin = require("terser-webpack-plugin");
+// const nodeExternals = require('webpack-node-externals');
 
 module.exports = {
   entry: './src/index.js',
@@ -54,4 +57,13 @@ module.exports = {
       },
     ],
   },
+  // plugins: [
+  //   new NodePolyfillPlugin()
+  // ],
+  // externalsPresets: { node: true },
+  // externals: [nodeExternals()],
+  // optimization: {
+  //   minimize: true,
+  //   minimizer: [new TerserPlugin()],
+  // },
 };
