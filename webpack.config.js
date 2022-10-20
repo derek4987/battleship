@@ -57,13 +57,26 @@ module.exports = {
       },
     ],
   },
+  // resolve: {
+  //   fallback: {
+  //     "path": require.resolve("path-browserify"),
+  //     "zlib": require.resolve("browserify-zlib"),
+  //     "stream": require.resolve("stream-browserify"),
+  //     "https": require.resolve("https-browserify"),
+  //     "crypto": require.resolve("crypto-browserify"),
+  //     "http": require.resolve("stream-http"),
+  //     "vm": require.resolve("vm-browserify"),
+  //     "constants": require.resolve("constants-browserify"),
+  //   },
+  // },
   // plugins: [
   //   new NodePolyfillPlugin()
   // ],
   // externalsPresets: { node: true },
   // externals: [nodeExternals()],
   // optimization: {
-  //   minimize: true,
-  //   minimizer: [new TerserPlugin()],
+  //   splitChunks: {
+  //     chunks: 'all',
+  //   },
   // },
 };

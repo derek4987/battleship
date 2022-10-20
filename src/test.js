@@ -93,4 +93,5 @@ test('placeShip: places valid ship vertical, assigns coordinates, and adds to ar
 test('placeShip: places valid ship horizontal, assigns coordinates, and adds to arrays', () => {
     const gbTest = gameboard();
     expect(gbTest.placeShip(12, gbTest.cruiser, 'h')).toBe(true);
+    expect(gbTest.shipCoords.length).toBe(3);
 });

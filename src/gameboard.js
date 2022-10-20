@@ -1,5 +1,5 @@
 // gameboard factory function
-import { electron } from "webpack";
+// import { electron } from "webpack";
 import { shipFactory } from "./ship"
 
 
@@ -31,7 +31,7 @@ const gameboard = () => {
         } else return;
 
         // creates tempArray based on xy and toAdd value
-        if (shipCoords.includes(xy) === true) {
+        if (obj.shipCoords.includes(xy) === true) {
             return;
         } else {
             for (let i=0; i<shipLength; i++) {
@@ -45,14 +45,14 @@ const gameboard = () => {
         if (direction === 'h') {
             const highestCoord = roundUpNearest10(xy);
             for (let i=0; i<tempArray.length; i++) {
-                if (tempArray[i] > highestCoord || tempArray[i] === undefined || shipCoords.includes(tempArray[i])) {
+                if (tempArray[i] > highestCoord || tempArray[i] === undefined || obj.shipCoords.includes(tempArray[i])) {
                     isValidCoords = false;
                     break;
                 } else continue;
             }
         } else if (direction === 'v') {
             for (let i=0; i<tempArray.length; i++) {
-                if (tempArray[i] > 100 || tempArray[i] === undefined || shipCoords.includes(tempArray[i])) {
+                if (tempArray[i] > 100 || tempArray[i] === undefined || obj.shipCoords.includes(tempArray[i])) {
                     isValidCoords = false;
                     break;
                 } else continue;
@@ -61,8 +61,8 @@ const gameboard = () => {
 
         if (isValidCoords === true) {
             ship.shipArray = tempArray;
-            const newShipCoords = shipCoords.concat(tempArray);
-            shipCoords = newShipCoords;
+            const newShipCoords = obj.shipCoords.concat(tempArray);
+            obj.shipCoords = newShipCoords;
         } else return;
         return true;
     };
@@ -109,7 +109,64 @@ const gameboard = () => {
         return Math.ceil(num / 10) * 10;
     }
 
-    return { shipCoords, hitCoords, missCoords, selectedCoords, placeShip, receiveAttack, shipStatus, hitShips, carrier, battleship, cruiser, submarine, destroyer };
+    // random Int from interval
+    function randomIntFromInterval(min, max) { // min and max included 
+    	return Math.floor(Math.random() * (max - min + 1) + min)
+    };
+
+    // random ship placement
+
+    const placeShipRandom = () => {
+    	const hOrV = ['h','v'];
+    	// boardCoords returns [1,2,...,100];
+    	// const boardCoords = Array.from( {length: 100}, (_, i) => i +1);
+
+    	//place carrier
+    	for (let i=0; i<150; i++) {
+    		const direction = hOrV[randomIntFromInterval(0,1)];
+    		const xy = randomIntFromInterval(1,100);
+    		if (placeShip(xy, carrier, direction) === true) {
+    			break;
+    		} else continue;
+    	}
+    	//place battleship
+    	for (let i=0; i<150; i++) {
+    		const direction = hOrV[randomIntFromInterval(0,1)];
+    		const xy = randomIntFromInterval(1,100);
+    		if (placeShip(xy, battleship, direction) === true) {
+    			break;
+    		} else continue;
+    	}
+    	//place cruiser
+    	for (let i=0; i<150; i++) {
+    		const direction = hOrV[randomIntFromInterval(0,1)];
+    		const xy = randomIntFromInterval(1,100);
+    		if (placeShip(xy, cruiser, direction) === true) {
+    			break;
+    		} else continue;
+    	}
+    	//place submarine
+    	for (let i=0; i<150; i++) {
+    		const direction = hOrV[randomIntFromInterval(0,1)];
+    		const xy = randomIntFromInterval(1,100);
+    		if (placeShip(xy, submarine, direction) === true) {
+    			break;
+    		} else continue;
+    	}
+    	//place destroyer
+    	for (let i=0; i<150; i++) {
+    		const direction = hOrV[randomIntFromInterval(0,1)];
+    		const xy = randomIntFromInterval(1,100);
+    		if (placeShip(xy, destroyer, direction) === true) {
+    			break;
+    		} else continue;
+        }
+        console.log(obj.shipCoords);
+    };
+
+    const obj = { shipCoords, hitCoords, missCoords, selectedCoords, placeShip, receiveAttack, shipStatus, hitShips, placeShipRandom, carrier, battleship, cruiser, submarine, destroyer }
+
+    return obj;
 };
 
 export {
