@@ -232,6 +232,20 @@ body {
   background-color: rgb(114, 146, 114);
 }
 
+.hit {
+  background-color: red;
+  border: 1px solid black;
+  width: 45px;
+  height: 45px;
+}
+
+.miss {
+  background-color: white;
+  border: 1px solid black;
+  width: 45px;
+  height: 45px;
+}
+
 /* mainGame page buttons */
 #mgButtonsDiv {
   display: flex;

@@ -55,7 +55,7 @@ const mainGameContent = () => {
     const mgModalWrapper = newDiv('mgDefaultModal','');
     
     const mgWinnerName = newDiv('mgModalMessageDefault','mgWinnerName');
-    mgWinnerName.textContent = "Player 1 Wins";
+    mgWinnerName.textContent = "Game Over";
 
     const modalButtonsDiv = newDiv('','modalButtonsDiv');
 

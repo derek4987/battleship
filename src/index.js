@@ -34,6 +34,9 @@ function mainGame() {
 // player and ai gameboards
 const aiBoard = gameboard();
 const playerBoard = gameboard();
+// player board coords array for ai attack
+const n = 100
+let playerBoardArray = Array.from({length: n}, (_, i) => i+1);
 
 // page gameflow
 document.addEventListener('click', function(e) {
@@ -111,12 +114,70 @@ document.addEventListener('click', function(e) {
 			} else return;
 		});
 	}
+
+	if (e.target.matches('.aiBoardHover')) {
+		const squareID = e.target.id;
+		const coord = getCoordFromID(squareID);
+		const attack = aiBoard.receiveAttack(coord);
+		
+		if (attack === "hit") {
+			hitShip(e.target);
+		} else if (attack === "miss") {
+			missShip(e.target);
+		} else return;
+
+		// prevent square from being selected again		
+		e.target.classList.remove('aiBoardHover');
+
+		// check for winner
+		const didPlayerWin = aiBoard.shipStatus();
+		
+		if (didPlayerWin === true) {
+			modalOpenOrClose('#mgModal','open');
+			disableBackground('on');
+		}
+
+		// ai attack
+		const randomInt = randomIntFromInterval(0,playerBoardArray.length - 1);
+		const randomCoord = playerBoardArray[randomInt];
+		let playerSquareAttacked = playerBoard.receiveAttack(randomCoord);
+		
+		// remove randomCoord from playerBoardArray
+		playerBoardArray = arrayRemove(playerBoardArray,randomCoord);
+		const randomSquareAttacked = document.querySelector(`#p${randomCoord}`);
+
+		if ( playerSquareAttacked === "hit") {
+			hitShip(randomSquareAttacked);
+		} else if (playerSquareAttacked === "miss") {
+			missShip(randomSquareAttacked);
+		} else return;
+
+		// check for winner
+		const didAiWin = playerBoard.shipStatus();
+		
+		if (didAiWin === true) {
+			modalOpenOrClose('#mgModal','open');
+			disableBackground('on');
+		}
+	}
+
+	if (e.target.matches('#modalPlayAgain')) {
+		pageContent.innerHTML = '';
+		// clear current game data, hits, misses, etc except player name
+		clearBoardData(playerBoard);
+		clearBoardData(aiBoard);
+		pageContent.append(placeShip());
+	}
+
+	if (e.target.matches('#modalMainMenu')) {
+		pageContent.innerHTML = '';
+		// clear current game data, hits, misses, etc and player name
+		clearBoardData(playerBoard);
+		clearBoardData(aiBoard);
+		pageContent.append(startPage());
+	}
 });
 
-
-// player and ai gameboards
-// const aiBoard = gameboard();
-// const playerBoard = gameboard();
 
 // DOM logic functions
 
@@ -161,15 +222,38 @@ function displayPlayersShips(board) {
 	}
 };
 
+function getCoordFromID(id) {
+	let coord = parseInt(id.slice(1));
+	return coord;
+}
+
+function hitShip(square) {
+	square.classList.remove('playerBoard');
+	square.classList.add('hit');
+}
+
+function missShip(square) {
+	square.classList.remove('playerBoard');
+	square.classList.add('miss');
+}
+
 // clear data
 function clearBoardData(board) {
 	board.shipCoords = [];
 	board.hitCoords = [];
 	board.missCoords = [];
 	board.selectedCoords = [];
+	playerBoardArray = Array.from({length: n}, (_, i) => i+1);
 }
 
 // random Int from interval
 function randomIntFromInterval(min, max) { // min and max included 
 	return Math.floor(Math.random() * (max - min + 1) + min)
 };
+
+// remove value from array
+function arrayRemove(arr, value) {
+	return arr.filter(function(ele){ 
+		return ele != value; 
+	});
+}

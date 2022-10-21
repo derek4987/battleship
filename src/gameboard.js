@@ -70,22 +70,24 @@ const gameboard = () => {
     // coords entered as number xy with no comma between x and y
     const receiveAttack = (xy) => {
         // check if coordinates have been entered before
-        const searchAllCoords = selectedCoords.includes(xy);
-        const searchShipCoords = shipCoords.includes(xy);
+        const searchAllCoords = obj.selectedCoords.includes(xy);
+        const searchShipCoords = obj.shipCoords.includes(xy);
         if (searchAllCoords === false) {
             if (searchShipCoords === true) {
-                hitCoords.push(xy);
+                obj.hitCoords.push(xy);
                 hitShips(xy);
+                return "hit";
             } else {
-                missCoords.push(xy);
+                obj.missCoords.push(xy);
             };
-            selectedCoords.push(xy);
-        } else return;
+            obj.selectedCoords.push(xy);
+            return "miss";
+        } else return
     };
 
     // checks if all ships have been sunk
     const shipStatus = () => {
-        if (hitCoords.length === shipCoords.length) {
+        if (obj.hitCoords.length === obj.shipCoords.length) {
             return true;
         } else {
             return false;
