@@ -34,6 +34,7 @@ function mainGame() {
 // player and ai gameboards
 const aiBoard = gameboard();
 const playerBoard = gameboard();
+let playerName;
 // player board coords array for ai attack
 const n = 100
 let playerBoardArray = Array.from({length: n}, (_, i) => i+1);
@@ -47,6 +48,7 @@ document.addEventListener('click', function(e) {
 			return
 		} else {
 			pageContent.innerHTML = '';
+			playerName = hPlayerNameInput.value;
 			pageContent.append(placeShip());
 		}
 	}
@@ -59,14 +61,14 @@ document.addEventListener('click', function(e) {
 		// functionality for clear button
 		// etc.
 
-		pageContent.innerHTML = '';
-		pageContent.append(mainGame());
+		// pageContent.innerHTML = '';
+		// pageContent.append(mainGame());
+		// document.querySelector('#playerBoardHeader').textContent = playerName;
+
 		// computer ship placement: randomly selected
-		aiBoard.placeShipRandom();
-		// player ship placement: temporary random for testing game
-		playerBoard.placeShipRandom();
-		console.log(playerBoard.shipCoords);
-		displayPlayersShips(playerBoard);
+		// aiBoard.placeShipRandom();
+
+		// displayPlayersShips(playerBoard);
 	}
 
 	if (e.target.matches('#psClearButton')) {
@@ -76,6 +78,21 @@ document.addEventListener('click', function(e) {
 		// clear all game data except player name
 		clearBoardData(playerBoard);
 
+	}
+
+	if (e.target.matches('#psRandomButton')) {
+		pageContent.innerHTML = '';
+		pageContent.append(mainGame());
+		document.querySelector('#playerBoardHeader').textContent = playerName;
+
+		// computer ship placement: randomly selected
+		aiBoard.placeShipRandom();
+
+		// player ship placement random
+		playerBoard.placeShipRandom();
+		console.log(playerBoard.shipCoords);
+
+		displayPlayersShips(playerBoard);
 	}
 
 	// mainGame page

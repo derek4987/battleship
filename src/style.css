@@ -182,7 +182,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 250px;
+  width: 375px;
   height: 45px;
   margin-top: 25px;
 }
@@ -204,6 +204,16 @@ body {
   width: 112px;
   height: 42px;
 }
+
+#psRandomButton {
+  width: 110px;
+  height: 40px;
+}
+#psRandomButton:hover {
+  width: 112px;
+  height: 42px;
+}
+
 
 /* mainGame page styles */
 #mgWrapper {

@@ -61,7 +61,10 @@ const placeShipContent = () => {
     const clearButton = newButton('defaultButtons','psClearButton');
     clearButton.textContent = "Clear";
 
-    buttonDiv.append(playButton, clearButton);
+    const randomButton = newButton('defaultButtons','psRandomButton');
+    randomButton.textContent = "Random";
+
+    buttonDiv.append(playButton, clearButton, randomButton);
 
     // append all content to wrapper
     psWrapper.append(pageTitle, playerBoardDiv, shipsDragBox, buttonDiv);

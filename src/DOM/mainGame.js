@@ -13,7 +13,7 @@ const mainGameContent = () => {
     const gameboardsDiv = newDiv('','gameboardsDiv');
 
     const playerBoardDiv = newDiv('playerBoardDiv','');
-    const playerBoardHeader = newDiv('boardHeader','');
+    const playerBoardHeader = newDiv('boardHeader','playerBoardHeader');
     playerBoardHeader.textContent = "Player Name";
     const playerBoardContainer = newDiv('boardContainer','');
     for (let i=1; i<101; i++) {
