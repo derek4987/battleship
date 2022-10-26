@@ -24,31 +24,51 @@ const placeShipContent = () => {
 
     // ships drag boxes
     const shipsDragBox = newDiv('','shipsDragBox');
-    const carrierBox = newDiv('horizontal','carrierBox');
+    const carrierBox = newDiv('','carrierBox');
+    const carrierCasing = newDiv('horizontal','carrierCasing');
+    carrierCasing.classList.add('rotate');
+    carrierCasing.setAttribute('draggable','true');
     for (let i=0; i<5; i++) {
         const square = newDiv('psDragBoxSquare', '');
-        carrierBox.append(square);
+        carrierCasing.append(square);
     }
-    const battleshipBox = newDiv('horizontal','battleshipBox');
+    carrierBox.append(carrierCasing);
+    const battleshipBox = newDiv('','battleshipBox');
+    const battleshipCasing = newDiv('horizontal','battleshipCasing');
+    battleshipCasing.classList.add('rotate');
+    battleshipCasing.setAttribute('draggable','true');
     for (let i=0; i<4; i++) {
         const square = newDiv('psDragBoxSquare', '');
-        battleshipBox.append(square);
+        battleshipCasing.append(square);
     }
-    const cruiserBox = newDiv('horizontal','cruiserBox');
+    battleshipBox.append(battleshipCasing);
+    const cruiserBox = newDiv('','cruiserBox');
+    const cruiserCasing = newDiv('horizontal','cruiserCasing');
+    cruiserCasing.classList.add('rotate');
+    cruiserCasing.setAttribute('draggable','true');
     for (let i=0; i<3; i++) {
         const square = newDiv('psDragBoxSquare', '');
-        cruiserBox.append(square);
+        cruiserCasing.append(square);
     }
-    const submarineBox = newDiv('horizontal','submarineBox');
+    cruiserBox.append(cruiserCasing);
+    const submarineBox = newDiv('','submarineBox');
+    const submarineCasing = newDiv('horizontal','submarineCasing');
+    submarineCasing.classList.add('rotate');
+    submarineCasing.setAttribute('draggable','true');
     for (let i=0; i<3; i++) {
         const square = newDiv('psDragBoxSquare', '');
-        submarineBox.append(square);
+        submarineCasing.append(square);
     }
-    const destroyerBox = newDiv('horizontal','destroyerBox');
+    submarineBox.append(submarineCasing);
+    const destroyerBox = newDiv('','destroyerBox');
+    const destroyerCasing = newDiv('horizontal','destroyerCasing');
+    destroyerCasing.classList.add('rotate');
+    destroyerCasing.setAttribute('draggable','true');
     for (let i=0; i<2; i++) {
         const square = newDiv('psDragBoxSquare', '');
-        destroyerBox.append(square);
+        destroyerCasing.append(square);
     }
+    destroyerBox.append(destroyerCasing);
 
     shipsDragBox.append(carrierBox, battleshipBox, cruiserBox, submarineBox, destroyerBox);
 

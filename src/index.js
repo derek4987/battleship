@@ -41,6 +41,7 @@ let playerBoardArray = Array.from({length: n}, (_, i) => i+1);
 
 // page gameflow
 document.addEventListener('click', function(e) {
+	console.log(`${e.target.className}`);
 	// start page
 	if (e.target.matches('#hPlayButton')) {
 		const hPlayerNameInput = document.querySelector('#playerInfo');
@@ -54,6 +55,17 @@ document.addEventListener('click', function(e) {
 	}
 
 	// placeShip page
+	if (e.target.parentElement.matches('.rotate')) {
+		const parent = e.target.parentElement;
+		if (parent.classList.contains('horizontal') === true) {
+			parent.classList.remove('horizontal');
+			parent.classList.add('vertical');
+		} else if (parent.classList.contains('vertical') === true) {
+			parent.classList.remove('vertical');
+			parent.classList.add('horizontal');
+		} else return;
+	}
+		
 	if (e.target.matches('#psPlayButton')) {
 
 		// future logic to add on placeShip page

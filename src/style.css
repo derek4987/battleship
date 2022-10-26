@@ -142,19 +142,32 @@ body {
   margin-top: 15px;
   gap: 10px;
 }
+/* .shipBoxCasing {
+  height: auto;
+  width: auto;
+} */
 .psDragBoxSquare {
   border: 1px solid rgb(122, 122, 122);
   background-color: rgb(55, 74, 180);
   width: 45px;
   height: 45px;
+  z-index: 1;
 }
 .horizontal {
   display: flex;
   flex-direction: row;
+  z-index: 2;
+  width: min-content;
+  height: min-content;
+  cursor: pointer;
 }
 .vertical {
   display: flex;
   flex-direction: column;
+  z-index: 2;
+  width: min-content;
+  height: min-content;
+  cursor: pointer;
 }
 #carrierBox {
   width: 230px;
