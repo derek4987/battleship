@@ -4,6 +4,7 @@ import startPageContent from './DOM/startPage';
 import placeShipContent from './DOM/placeShip';
 import mainGameContent from './DOM/mainGame';
 import { gameboard } from './gameboard';
+import { dragDrop } from './dragDrop';
 
 // page content shell
 const pageContent = document.body;
@@ -31,6 +32,8 @@ function mainGame() {
 	return element;
 }
 
+// drag and drop
+const dragnDrop = dragDrop();
 // player and ai gameboards
 const aiBoard = gameboard();
 const playerBoard = gameboard();
@@ -207,6 +210,18 @@ document.addEventListener('click', function(e) {
 	}
 });
 
+// drag and drop
+document.addEventListener('dragstart', function(e) {
+	if (e.target.matches('.fill')) {
+		console.log('start');
+		dragnDrop.dragStart(e.target);
+
+		e.target.addEventListener('dragend', (e) => {
+			console.log('end');
+			dragnDrop.dragEnd(e.target);
+		});
+	}
+});
 
 // DOM logic functions
 

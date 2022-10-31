@@ -26,7 +26,7 @@ const placeShipContent = () => {
     const shipsDragBox = newDiv('','shipsDragBox');
     const carrierBox = newDiv('','carrierBox');
     const carrierCasing = newDiv('horizontal','carrierCasing');
-    carrierCasing.classList.add('rotate');
+    carrierCasing.className += ' rotate fill';
     carrierCasing.setAttribute('draggable','true');
     for (let i=0; i<5; i++) {
         const square = newDiv('psDragBoxSquare', '');
@@ -35,7 +35,7 @@ const placeShipContent = () => {
     carrierBox.append(carrierCasing);
     const battleshipBox = newDiv('','battleshipBox');
     const battleshipCasing = newDiv('horizontal','battleshipCasing');
-    battleshipCasing.classList.add('rotate');
+    battleshipCasing.className += ' rotate fill';
     battleshipCasing.setAttribute('draggable','true');
     for (let i=0; i<4; i++) {
         const square = newDiv('psDragBoxSquare', '');
@@ -44,7 +44,7 @@ const placeShipContent = () => {
     battleshipBox.append(battleshipCasing);
     const cruiserBox = newDiv('','cruiserBox');
     const cruiserCasing = newDiv('horizontal','cruiserCasing');
-    cruiserCasing.classList.add('rotate');
+    cruiserCasing.className += ' rotate fill';
     cruiserCasing.setAttribute('draggable','true');
     for (let i=0; i<3; i++) {
         const square = newDiv('psDragBoxSquare', '');
@@ -53,7 +53,7 @@ const placeShipContent = () => {
     cruiserBox.append(cruiserCasing);
     const submarineBox = newDiv('','submarineBox');
     const submarineCasing = newDiv('horizontal','submarineCasing');
-    submarineCasing.classList.add('rotate');
+    submarineCasing.className += ' rotate fill';
     submarineCasing.setAttribute('draggable','true');
     for (let i=0; i<3; i++) {
         const square = newDiv('psDragBoxSquare', '');
@@ -62,7 +62,7 @@ const placeShipContent = () => {
     submarineBox.append(submarineCasing);
     const destroyerBox = newDiv('','destroyerBox');
     const destroyerCasing = newDiv('horizontal','destroyerCasing');
-    destroyerCasing.classList.add('rotate');
+    destroyerCasing.className += ' rotate fill';
     destroyerCasing.setAttribute('draggable','true');
     for (let i=0; i<2; i++) {
         const square = newDiv('psDragBoxSquare', '');
