@@ -17,6 +17,7 @@ const placeShipContent = () => {
     const boardContainer = newDiv('boardContainer','');
     for (let i=1; i<101; i++) {
         const square = newDiv('playerBoard',`${i}`);
+        square.className += ' empty';
         boardContainer.append(square);
     }
 
