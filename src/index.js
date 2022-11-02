@@ -33,11 +33,8 @@ function mainGame() {
 }
 
 // drag and drop
-const dragCarrier = dragDrop();
-const dragBattleship = dragDrop();
-const dragCruiser = dragDrop();
-const dragSubmarine = dragDrop();
-const dragDestroyer = dragDrop();
+const dragnDrop = dragDrop();
+
 // player and ai gameboards
 const aiBoard = gameboard();
 const playerBoard = gameboard();
@@ -74,26 +71,25 @@ document.addEventListener('click', function(e) {
 	}
 		
 	if (e.target.matches('#psPlayButton')) {
-
-		// future logic to add on placeShip page
 		// check for ships placed
-		// functionality for clear button
-		// etc.
+		if (cruiserCoord === 0 || battleshipCoord === 0 || cruiserCoord === 0 || submarineCoord === 0 || destroyerCoord === 0) {
+			alert('Place ships in valid locations');
+			return
+		} // else if { check values }
 
-		// pageContent.innerHTML = '';
-		// pageContent.append(mainGame());
-		// document.querySelector('#playerBoardHeader').textContent = playerName;
+		pageContent.innerHTML = '';
+		pageContent.append(mainGame());
+		document.querySelector('#playerBoardHeader').textContent = playerName;
 
 		// computer ship placement: randomly selected
-		// aiBoard.placeShipRandom();
+		aiBoard.placeShipRandom();
 
-		// displayPlayersShips(playerBoard);
+		displayPlayersShips(playerBoard);
 	}
 
 	if (e.target.matches('#psClearButton')) {
 		pageContent.innerHTML = '';
 		pageContent.append(placeShip());
-		// future functionality added
 		// clear all game data except player name
 		clearBoardData(playerBoard);
 
@@ -216,11 +212,11 @@ document.addEventListener('click', function(e) {
 
 // drag and drop
 // stores coord of first square of ship to run gameboard.placeShip test;
-let carrierCoord;
-let battleshipCoord;
-let cruiserCoord;
-let submarineCoord;
-let destroyerCoord;
+let carrierCoord = 0;
+let battleshipCoord = 0;
+let cruiserCoord = 0;
+let submarineCoord = 0;
+let destroyerCoord = 0;
 
 // if (document.querySelector('#carrierCasing') !== null) {
 // 	const carrier = document.querySelector('#carrierCasing');
@@ -242,82 +238,55 @@ let destroyerCoord;
 // }
 
 document.addEventListener('dragstart', function(e) {
+	
 	if (e.target.matches('#carrierCasing')) {
-		console.log('start');
-		console.log(e.target.id);
-		dragCarrier.dragStart(e.target);
-
-		e.target.addEventListener('dragend', (e) => {
-			console.log('end');
-			dragCarrier.dragEnd(e.target);
-		});
-
-		const empties = document.querySelectorAll('.empty');
-		// loop through empties and call drag events
-		for (const empty of empties) {
-			empty.addEventListener('dragover', dragCarrier.dragOver);
-			empty.addEventListener('drop', () => {
-				empty.append(e.target);
-				carrierCoord = toInteger(empty.id);
-				console.log(carrierCoord);
-			});
-			
-		}
+		dragnDropShipListeners(e.target, carrierCoord);
+	} 
+	if (e.target.matches('#battleshipCasing')) {
+		dragnDropShipListeners(e.target, battleshipCoord);
 	}
 	if (e.target.matches('#cruiserCasing')) {
-		console.log('start');
-		console.log(e.target.id);
-		dragCruiser.dragStart(e.target);
-
-		e.target.addEventListener('dragend', (e) => {
-			console.log('end');
-			dragCruiser.dragEnd(e.target);
-		});
-
-		const empties = document.querySelectorAll('.empty');
-		// loop through empties and call drag events
-		for (const empty of empties) {
-			empty.addEventListener('dragover', dragCruiser.dragOver);
-			empty.addEventListener('drop', () => {
-				empty.append(e.target);
-				cruiserCoord = toInteger(empty.id);
-				console.log(cruiserCoord);
-			});
-			
-		}
+		dragnDropShipListeners(e.target, cruiserCoord);
 	}
-	// if (e.target.matches('#carrierCasing')) {
-	// 	const carrier = e.target
-	// 	dragnDropShipListeners(carrier, carrierCoord, dragCarrier);
-	// } else if (e.target.matches('#cruiserCoord')) {
-	// 	const cruiser = e.target;
-	// 	dragnDropShipListeners(cruiser, cruiserCoord, dragCruiser);
-	// } else return;
+	if (e.target.matches('#submarineCasing')) {
+		dragnDropShipListeners(e.target, submarineCoord);
+	}
+	if (e.target.matches('#destroyerCasing')) {
+		dragnDropShipListeners(e.target, destroyerCoord);
+	}
+
 });
 
 // function to control event listeners for each ship drag and drop
-// draggedShip is the associated ship Coord variable cruiserCoord, carrierCoord, etc
-function dragnDropShipListeners(draggedShip, draggedShipCoord, dragShipFunction) {
+// eDotTarget is the associated ship, draggedShipCoord is carrierCoord, cruiserCoord, etc.
+function dragnDropShipListeners(eDotTarget, draggedShipCoord) {
+	const dragged = eDotTarget // store what's being dragged
+	dragnDrop.dragStart(eDotTarget);
 	console.log('start');
-	console.log(draggedShip.id);
-	dragShipFunction.dragStart(draggedShip);
+	console.log(eDotTarget.id);
 
-	draggedShip.addEventListener('dragend', (e) => {
+	eDotTarget.addEventListener('dragend', (e) => {
 		console.log('end');
-		dragShipFunction.dragEnd(draggedShip);
+		dragnDrop.dragEnd(e.target);
 	});
 
 	const empties = document.querySelectorAll('.empty');
 	// loop through empties and call drag events
 	for (const empty of empties) {
-		empty.addEventListener('dragover', dragShipFunction.dragOver);
-		empty.addEventListener('drop', () => {
-			empty.append(draggedShip);
-			draggedShipCoord = toInteger(empty.id);
-			console.log(draggedShipCoord);
-		});
-		
+		empty.addEventListener('dragover', dragnDrop.dragOver);
+		empty.addEventListener('drop', dropFunction);			
 	}
+
+	function dropFunction(e) {
+		let empty = e.target;
+		empty.append(dragged);
+		draggedShipCoord = toInteger(empty.id);
+		console.log(draggedShipCoord);
+
+		// remove all listeners
+		empties.forEach(empty => empty.removeEventListener('drop', dropFunction));
+	}
+	return;
 }
 
 // DOM logic functions
