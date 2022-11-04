@@ -45,7 +45,6 @@ let playerBoardArray = Array.from({length: n}, (_, i) => i+1);
 
 // page gameflow
 document.addEventListener('click', function(e) {
-	console.log(`${e.target.className}`);
 	// start page
 	if (e.target.matches('#hPlayButton')) {
 		const hPlayerNameInput = document.querySelector('#playerInfo');
@@ -72,19 +71,40 @@ document.addEventListener('click', function(e) {
 		
 	if (e.target.matches('#psPlayButton')) {
 		// check for ships placed
-		if (cruiserCoord === 0 || battleshipCoord === 0 || cruiserCoord === 0 || submarineCoord === 0 || destroyerCoord === 0) {
-			alert('Place ships in valid locations');
+		const carrierCoord = updateShipCoord('#carrierCasing');
+		const battleshipCoord = updateShipCoord('#battleshipCasing');
+		const cruiserCoord = updateShipCoord('#cruiserCasing');
+		const submarineCoord = updateShipCoord('#submarineCasing');
+		const destroyerCoord = updateShipCoord('#destroyerCasing');
+
+		const placeShipPageCoords = [carrierCoord, battleshipCoord, cruiserCoord, submarineCoord, destroyerCoord];
+		console.log(placeShipPageCoords);
+
+		if (placeShipPageCoords.includes(0) === false) {
+			// place ships 
+			playerBoard.placeShip(carrierCoord, playerBoard.carrier, vOrh('#carrierCasing'));
+			playerBoard.placeShip(battleshipCoord, playerBoard.battleship, vOrh('#battleshipCasing'));
+			playerBoard.placeShip(cruiserCoord, playerBoard.cruiser, vOrh('#cruiserCasing'));
+			playerBoard.placeShip(submarineCoord, playerBoard.submarine, vOrh('#submarineCasing'));
+			playerBoard.placeShip(destroyerCoord, playerBoard.destroyer, vOrh('#destroyerCasing'));
+		} else { 
+			alert('Place all ships in valid locations');
 			return
-		} // else if { check values }
+		};
 
-		pageContent.innerHTML = '';
-		pageContent.append(mainGame());
-		document.querySelector('#playerBoardHeader').textContent = playerName;
+		if (playerBoard.shipCoords.length === 17) {
+			pageContent.innerHTML = '';
+			pageContent.append(mainGame());
+			document.querySelector('#playerBoardHeader').textContent = playerName;
 
-		// computer ship placement: randomly selected
-		aiBoard.placeShipRandom();
+			// computer ship placement: randomly selected
+			aiBoard.placeShipRandom();
 
-		displayPlayersShips(playerBoard);
+			displayPlayersShips(playerBoard);
+		} else {
+			alert('Place all ships in valid locations');
+			return
+		};
 	}
 
 	if (e.target.matches('#psClearButton')) {
@@ -165,31 +185,36 @@ document.addEventListener('click', function(e) {
 		const didPlayerWin = aiBoard.shipStatus();
 		
 		if (didPlayerWin === true) {
+			const winnerName = document.querySelector('#mgWinnerName');
+			winnerName.textContent = 'You Win';
 			modalOpenOrClose('#mgModal','open');
 			disableBackground('on');
-		}
+			return;
+		} else {
+			// ai attack
+			const randomInt = randomIntFromInterval(0,playerBoardArray.length - 1);
+			const randomCoord = playerBoardArray[randomInt];
+			let playerSquareAttacked = playerBoard.receiveAttack(randomCoord);
+			
+			// remove randomCoord from playerBoardArray
+			playerBoardArray = arrayRemove(playerBoardArray,randomCoord);
+			const randomSquareAttacked = document.querySelector(`#p${randomCoord}`);
 
-		// ai attack
-		const randomInt = randomIntFromInterval(0,playerBoardArray.length - 1);
-		const randomCoord = playerBoardArray[randomInt];
-		let playerSquareAttacked = playerBoard.receiveAttack(randomCoord);
-		
-		// remove randomCoord from playerBoardArray
-		playerBoardArray = arrayRemove(playerBoardArray,randomCoord);
-		const randomSquareAttacked = document.querySelector(`#p${randomCoord}`);
+			if ( playerSquareAttacked === "hit") {
+				hitShip(randomSquareAttacked);
+			} else if (playerSquareAttacked === "miss") {
+				missShip(randomSquareAttacked);
+			} else return;
 
-		if ( playerSquareAttacked === "hit") {
-			hitShip(randomSquareAttacked);
-		} else if (playerSquareAttacked === "miss") {
-			missShip(randomSquareAttacked);
-		} else return;
+			// check for winner
+			const didAiWin = playerBoard.shipStatus();
 
-		// check for winner
-		const didAiWin = playerBoard.shipStatus();
-		
-		if (didAiWin === true) {
-			modalOpenOrClose('#mgModal','open');
-			disableBackground('on');
+			if (didAiWin === true) {
+				const winnerName = document.querySelector('#mgWinnerName');
+				winnerName.textContent = 'You Lose';
+				modalOpenOrClose('#mgModal','open');
+				disableBackground('on');
+			}
 		}
 	}
 
@@ -211,62 +236,34 @@ document.addEventListener('click', function(e) {
 });
 
 // drag and drop
-// stores coord of first square of ship to run gameboard.placeShip test;
-let carrierCoord = 0;
-let battleshipCoord = 0;
-let cruiserCoord = 0;
-let submarineCoord = 0;
-let destroyerCoord = 0;
-
-// if (document.querySelector('#carrierCasing') !== null) {
-// 	const carrier = document.querySelector('#carrierCasing');
-// 	const empties = document.querySelectorAll('.empty');
-
-// 	// ship listeners
-// 	carrier.addEventListener('dragstart', dragCarrier.dragStart);
-// 	carrier.addEventListener('dragend', dragCarrier.dragEnd(carrier));
-
-// 	// loop through empty boxes and add listeners
-// 	for (const empty of empties) {
-// 		empty.addEventListener('dragover', dragCarrier.dragOver);
-// 		empty.addEventListener('drop', () => {
-// 			empty.append(carrier);
-// 			carrierCoord = toInteger(carrier.id);
-// 			console.log(carrierCoord);
-// 		})
-// 	}
-// }
 
 document.addEventListener('dragstart', function(e) {
 	
 	if (e.target.matches('#carrierCasing')) {
-		dragnDropShipListeners(e.target, carrierCoord);
+		dragnDropShipListeners(e.target);
 	} 
 	if (e.target.matches('#battleshipCasing')) {
-		dragnDropShipListeners(e.target, battleshipCoord);
+		dragnDropShipListeners(e.target);
 	}
 	if (e.target.matches('#cruiserCasing')) {
-		dragnDropShipListeners(e.target, cruiserCoord);
+		dragnDropShipListeners(e.target);
 	}
 	if (e.target.matches('#submarineCasing')) {
-		dragnDropShipListeners(e.target, submarineCoord);
+		dragnDropShipListeners(e.target);
 	}
 	if (e.target.matches('#destroyerCasing')) {
-		dragnDropShipListeners(e.target, destroyerCoord);
+		dragnDropShipListeners(e.target);
 	}
 
 });
 
 // function to control event listeners for each ship drag and drop
 // eDotTarget is the associated ship, draggedShipCoord is carrierCoord, cruiserCoord, etc.
-function dragnDropShipListeners(eDotTarget, draggedShipCoord) {
+function dragnDropShipListeners(eDotTarget) {
 	const dragged = eDotTarget // store what's being dragged
 	dragnDrop.dragStart(eDotTarget);
-	console.log('start');
-	console.log(eDotTarget.id);
 
 	eDotTarget.addEventListener('dragend', (e) => {
-		console.log('end');
 		dragnDrop.dragEnd(e.target);
 	});
 
@@ -279,9 +276,7 @@ function dragnDropShipListeners(eDotTarget, draggedShipCoord) {
 
 	function dropFunction(e) {
 		let empty = e.target;
-		empty.append(dragged);
-		draggedShipCoord = toInteger(empty.id);
-		console.log(draggedShipCoord);
+		empty.append(dragged); 
 
 		// remove all listeners
 		empties.forEach(empty => empty.removeEventListener('drop', dropFunction));
@@ -366,4 +361,34 @@ function arrayRemove(arr, value) {
 	return arr.filter(function(ele){ 
 		return ele != value; 
 	});
+}
+
+// placeShip page check if drag and drop ship is vertical or horizontal
+function vOrh (shipId) {
+	const ship = document.querySelector(shipId);
+	if (ship.classList.contains('vertical')) {
+		return 'v';
+	} else if (ship.classList.contains('horizontal')) {
+		return 'h';
+	} else return;
+}
+
+// Update carrierCoord, cruiserCoord, etc.
+function updateShipCoord(shipId) {
+	const board = document.querySelectorAll('.playerBoard');
+	const ship = document.querySelector(shipId);
+	let draggedShipCoord;
+
+	// check for child with matching shipId
+	for (let i=0; i < board.length; i++) {
+		if (board[i].firstChild !== ship || board[i].firstChild === null) {
+			continue;
+		} else {
+			let squareId = board[i].id;
+			squareId = squareId.replace('p', '');
+			draggedShipCoord = parseInt(squareId);
+			break;
+		}
+	};
+	return draggedShipCoord;
 }

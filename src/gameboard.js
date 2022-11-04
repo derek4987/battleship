@@ -163,7 +163,6 @@ const gameboard = () => {
     			break;
     		} else continue;
         }
-        console.log(obj.shipCoords);
     };
 
     const obj = { shipCoords, hitCoords, missCoords, selectedCoords, placeShip, receiveAttack, shipStatus, hitShips, placeShipRandom, carrier, battleship, cruiser, submarine, destroyer }
